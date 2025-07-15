@@ -17,8 +17,8 @@ def cart(request):
     if request.user.is_authenticated:
         orders = Order.objects.filter(user=request.user.id)
     else:
-        print(request.session.session_key)
-        orders = Order.objects.filter(user=request.session.session_key)
+        anonim = request.session.session_key
+        orders = Order.objects.filter(user=anonim)
 
     return render(request, "cart.html", {"orders": orders})
 
@@ -30,10 +30,11 @@ def add_to_cart(request, article):
     print(request.session.session_key)
     if request.method == "POST":
         _id = ""
-        if request.user:
+        if request.user.is_authenticated:
             _id = str(request.user.id)
         else:
-            _id = str(request.session.session_key)
+            anonim = request.session.session_key
+            _id = request.session.session_key
 
         book_product = get_object_or_404(BookProduct, pk=article)
 
@@ -58,7 +59,7 @@ def del_order(request, article):
 
     if request.method == "POST":
         _id = ""
-        if request.user:
+        if request.user.is_authenticated:
             _id = str(request.user.id)
         else:
             _id = str(request.session.session_key)
