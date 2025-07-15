@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="books-container">
+        {% for book in books %}
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="{{ book.photo.url }}" alt="Обкладинка книги">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">{{ book.title }}</h3>
+                    <p class="book-author">{{ book.author }}</p>
+                    <div class="book-price">{{ book.price }} грн</div>
+                    <button class="add-to-cart">Додати до кошика</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

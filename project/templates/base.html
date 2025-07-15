@@ -10,12 +10,19 @@
   <header>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Home</a></li>
+        <li><a href="{% url 'home' %}">Головна</a></li>
+        <li><a href="#">Про нас</a></li>
+        <li><a href="#">Кошик</a></li>
+        <li><a href="#">Вхід</a></li>
       </ul>
     </nav>
   </header>
+  {% block content %}
+  {% endblock %}
+  <footer class="site-footer">
+    <p>
+      =)
+    </p>
+  </footer>
 </body>
 </html>
