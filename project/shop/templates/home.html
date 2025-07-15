@@ -1,5 +1,11 @@
 {% extends "base.html" %}
+
 {% block title %}Home{% endblock %}
+
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block content %}
     <div class="books-container">
@@ -12,7 +18,7 @@
                     <h3 class="book-title">{{ book.title }}</h3>
                     <p class="book-author">{{ book.author }}</p>
                     <div class="book-price">{{ book.price }} грн</div>
-                    <button class="add-to-cart">Додати до кошика</button>
+                    <a href="{% url 'book' book.article %}"><button class="add-to-cart">Переглянути</button></a>
                 </div>
             </div>
         {% endfor %}

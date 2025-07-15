@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="cart-container">
+        <h1>Кошик</h1>
+
+        <div class="cart-item">
+            {% for order in orders %}
+                <div class="cart-item">
+                    <div class="item-info">
+                        <div class="item-title">{{order.book_product.title}}</div>
+                        <div class="item-sku">({{order.book_product.article}})</div>
+                    </div>
+                    <div class="quantity-control">
+                        <form action="{% url 'del_cart' order.book_product.article %}" method="post">
+                            {% csrf_token %}
+                            <button class="quantity-btn">-</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'home' %}" class="continue-shopping">Продовжити покупки</a>
+
+        <div class="cart-summary">
+            <button class="checkout-btn">Оформити замовлення</button>
+        </div>
+    </div>
+{% endblock %}

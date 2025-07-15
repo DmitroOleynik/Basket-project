@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book }}{% endblock %}
+
+{% block link %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="book-cover">
+        <h1 class="book-title">{{ book.title }}</h1>
+        <p class="author-name">{{ book.author }}</p>
+        <img src="{{ book.photo.url }}" alt="Обкладинка книги">
+    </div>
+
+    <div class="book-info">
+        <div class="book-details">
+            <div>
+                <p class="detail-label">Автор:</p>
+                <p>{{ book.author }}</p>
+
+                <p class="detail-label">К-сть сторінок:</p>
+                <p>{{ book.count_pages }}</p>
+
+                <p class="detail-label">Зображення:</p>
+                <p>
+                    {% if book.pictures == "NON" %}
+                        Немає
+                    {% elif book.pictures == "BW" %}
+                        Чорно-білі
+                    {% else %}
+                        Кольорові
+                    {% endif %}
+                </p>
+
+                <p class="detail-label">Мова:</p>
+                <p>
+                    {% if book.pictures == "ENG" %}
+                        Англійська
+                    {% else %}
+                        Українська
+                    {% endif %}
+                </p>
+
+                <p class="detail-label">Категорія:</p>
+                <p>{{ book.category }}</p>
+
+                <p class="detail-label">Артикул:</p>
+                <p>{{ book.article }}</p>
+            </div>
+        </div>
+
+
+        <div class="price-section">
+            <form action="{% url 'add_cart' book.article %}" method="post">
+                {% csrf_token %}
+                <p class="price">{{ book.price }} ₴</p>
+                <button class="order-btn">Додати до кошика</button>
+            </form>
+        </div>
+
+        <div class="annotation">
+            <h3>Анотація</h3>
+            <p>
+                {{ book.description }}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
