@@ -13,3 +13,7 @@ class Order(models.Model):
 
     def publish(self):
         self.save()
+
+    @property
+    def one_price(self):
+        return self.count * self.book_product.price

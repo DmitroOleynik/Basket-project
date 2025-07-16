@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 from .models import BookProduct
 
@@ -11,7 +12,16 @@ def home_page(request):
         request.session.save()
 
     books = BookProduct.objects.all()
-    return render(request, "home.html", {"books": books})
+    paginator = Paginator(books, 3)
+
+    page_num = request.GET.get('page', 1)
+    page = paginator.get_page(page_num)
+
+    context = {
+        'books': page
+    }
+
+    return render(request, "home.html", context)
 
 
 def about_page(request):

@@ -22,5 +22,12 @@
                 </div>
             </div>
         {% endfor %}
+        <ul class="pagination">
+            {% for p in books.paginator.page_range %}
+            <li>
+                <a href="?page={{ p }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
